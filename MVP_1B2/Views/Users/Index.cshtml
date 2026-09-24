@@ -1,0 +1,71 @@
+﻿@model IEnumerable<MVP_1B2.ViewModels.AdminUserViewModel>
+
+@{
+    ViewData["Title"] = "User Management";
+}
+
+<h1>User Management</h1>
+
+<p class="text-muted">
+    Administrator view of application users and their assigned roles.
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Employee</th>
+            <th>Employee ID</th>
+            <th>Client ID</th>
+            <th>Role(s)</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Email</td>
+
+                <td>
+                    @(string.IsNullOrWhiteSpace(user.PhoneNumber)
+                                    ? "-"
+                                    : user.PhoneNumber)
+                                                   </td>
+
+                <td>
+                    @(string.IsNullOrWhiteSpace(user.EmployeeName)
+                                    ? "-"
+                                    : user.EmployeeName)
+            </td>
+
+                <td>
+                    @(user.EmployeeID?.ToString() ?? "-")
+                </td>
+
+                <td>
+                    @(user.ClientID?.ToString() ?? "-")
+                </td>
+
+                <td>
+                @if (user.Roles.Any())
+                    {
+                        foreach (var role in user.Roles)
+                        {
+                            <span class="badge bg-primary me-1">
+                                @role
+                            </span>
+                        }
+                    }
+                    else
+                    {
+                        <span class="text-muted">
+                            No role assigned
+                        </span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

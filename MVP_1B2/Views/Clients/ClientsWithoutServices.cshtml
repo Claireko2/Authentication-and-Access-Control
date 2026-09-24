@@ -1,0 +1,27 @@
+﻿@model IEnumerable<MVP_1B2.Models.Client>
+
+@{
+    ViewData["Title"] = "Clients Without Services";
+}
+
+<h1>Clients Not Registered for Any Service</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Date of Birth</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var client in Model)
+        {
+            <tr>
+                <td>@client.Name</td>
+                <td>@client.Address</td>
+                <td>@client.DateOfBirth.ToShortDateString()</td>
+            </tr>
+        }
+    </tbody>
+</table>

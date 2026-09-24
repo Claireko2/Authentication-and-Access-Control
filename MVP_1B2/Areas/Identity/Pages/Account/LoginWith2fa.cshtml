@@ -1,0 +1,68 @@
+﻿
+@page
+@model MVP_1B2.Areas.Identity.Pages.Account.LoginWith2faModel
+
+@{
+    ViewData["Title"] = "Two-factor authentication";
+}
+
+<h1>Two-factor authentication</h1>
+
+<p>
+    Enter the verification code sent to your registered mobile phone.
+</p>
+
+<form method="post">
+    @Html.AntiForgeryToken()
+
+    <input type="hidden"
+           name="ReturnUrl"
+           value="@Model.ReturnUrl" />
+
+    <div asp-validation-summary="All"
+         class="text-danger mb-3">
+    </div>
+
+    <div class="mb-3">
+        <label for="Code"
+               class="form-label">
+            Verification code
+        </label>
+
+        <input type="text"
+               id="Code"
+               name="Input.Code"
+               class="form-control"
+               autocomplete="one-time-code"
+               inputmode="numeric"
+               maxlength="10"
+               required />
+
+        <span asp-validation-for="Input.Code"
+              class="text-danger">
+        </span>
+    </div>
+
+    <div class="mb-3 form-check">
+        <input type="checkbox"
+               id="RememberMachine"
+               name="Input.RememberMachine"
+               value="true"
+               class="form-check-input" />
+
+        <label for="RememberMachine"
+               class="form-check-label">
+            Remember this machine
+        </label>
+    </div>
+
+    <button type="submit"
+            class="btn btn-primary">
+        Verify and sign in
+    </button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

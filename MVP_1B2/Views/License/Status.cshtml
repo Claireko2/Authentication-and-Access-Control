@@ -1,0 +1,50 @@
+﻿@model MVP_1B2.Services.LicenseValidationResult
+
+@{
+    ViewData["Title"] = "License Status";
+}
+
+<h1>License Status</h1>
+
+@if (Model.IsValid && Model.License != null)
+{
+    <div class="alert alert-success">
+        <h4>License is valid</h4>
+
+        <p>
+            The application license is currently valid.
+        </p>
+    </div>
+
+    <dl>
+        <dt>License ID</dt>
+        <dd>@Model.License.LicenseId</dd>
+
+        <dt>Customer</dt>
+        <dd>@Model.License.CustomerId</dd>
+
+        <dt>License Type</dt>
+        <dd>@Model.License.LicenseType</dd>
+
+        <dt>Valid From</dt>
+        <dd>@Model.License.ValidFromUtc</dd>
+
+        <dt>Valid Until</dt>
+        <dd>@Model.License.ValidUntilUtc</dd>
+    </dl>
+}
+else
+{
+    <div class="alert alert-danger">
+        <h4>License validation failed</h4>
+
+        <p>
+            @Model.Message
+        </p>
+    </div>
+
+    <p>
+        Please contact the software vendor to obtain
+        a valid license.
+    </p>
+}

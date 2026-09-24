@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Obfuscator>
+
+	<Var
+	  name="InPath"
+	  value="C:\Users\colle\Desktop\BCIT\BCS\Term 7\Database Security\MVP_1B2\MVP_1B2\bin\Release\net9.0" />
+
+	<Var
+	  name="OutPath"
+	  value="C:\Users\colle\Desktop\BCIT\BCS\Term 7\Database Security\MVP_1B2\MVP_1B2\bin\Release\net9.0\obfuscated" />
+
+	<Var
+	  name="KeepPublicApi"
+	  value="true" />
+
+	<Var
+	  name="HidePrivateApi"
+	  value="true" />
+
+	<Var
+	  name="HideStrings"
+	  value="true" />
+
+	<Var
+	  name="SuppressIldasm"
+	  value="true" />
+
+	<Module
+	  file="$(InPath)\MVP_1B2.dll">
+
+		<SkipType name="MVP_1B2.Services.ILicenseService" />
+		<SkipType name="MVP_1B2.Services.LicensePayload" />
+		<SkipType name="MVP_1B2.Services.LicenseValidationResult" />
+
+	</Module>
+
+</Obfuscator>

@@ -1,0 +1,113 @@
+﻿@model MVP_1B2.Models.Client
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Client</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Balance" class="control-label"></label>
+                <input asp-for="Balance" class="form-control" />
+                <span asp-validation-for="Balance" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfBirth" class="control-label"></label>
+                <input asp-for="DateOfBirth" type="date" class="form-control" />
+                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="Photo">Upload Photo</label>
+                <input type="file" name="PhotoFile" class="form-control" />
+            </div>
+
+            <input type="hidden" asp-for="ID" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input asp-for="PhoneNumber"
+                       class="form-control"
+                       type="tel"
+                       placeholder="+16045551234" />
+                <span asp-validation-for="PhoneNumber"
+                      class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Services</label>
+                <select id="selectedServices" name="selectedServices" class="form-control" multiple="multiple">
+                    @if (ViewData["Services"] is MultiSelectList servicesList)
+                    {
+                        // List of already selected services
+                        var selectedServiceIds = servicesList.SelectedValues.Cast<object>()
+                        .Select(v => v.ToString())
+                        .ToList();
+
+                        foreach (var service in servicesList)
+                        {
+                            var isSelected = selectedServiceIds.Contains(service.Value);
+                            <option value="@service.Value" selected="@(isSelected ? "selected" : null)">
+                                @service.Text
+                            </option>
+                        }
+                    }
+                </select>
+
+
+            </div>
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" name="DeleteAllServices" value="true" /> Delete all services
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+<script>
+    // Optional JavaScript to toggle the services select box if DeleteAllServices is checked
+    const deleteAllCheckbox = document.querySelector("input[name='DeleteAllServices']");
+    const servicesSelect = document.querySelector("#selectedServices");
+
+    deleteAllCheckbox.addEventListener('change', function () {
+        // If DeleteAllServices is checked, disable services selection
+        servicesSelect.disabled = this.checked;
+        if (this.checked) {
+            // Unselect all services when deleting
+            const options = servicesSelect.querySelectorAll('option');
+            options.forEach(option => option.selected = false);
+        } else {
+            servicesSelect.disabled = false;
+        }
+    });
+</script>
